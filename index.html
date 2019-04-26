@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <header>
+                    <h1>Observatorio de Paz y Convivencia</h1>
+                    <h3>Mapa de Narrativa de Paz 2018</h3>
+                </header>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-9"> 
+                <div class="chart-stage"> 
+                <!-- <div id="map">
+                </div> -->
+                <div id="map" style="width: 1000px; height: 680px"></div>
+                </div>
+            </div>
+            <div class="col-sm-3"> 
+                <h3>¿Como leer el mapa de Narrativa de Paz 2018?</h3>
+                <p>
+                    Nota: Te recomendamos leer el método de narrativa de Paz del OPC para que tengas claro como se obtuvieron los datos
+                </p>
+                
+                <ol>
+                    <li>Selecciona uno de los icono en forma de paloma (Ellos representan el lugar donde se realizó el taller narrrativas de paz)</li>
+                    <li>Al dar click en el icono aparecera un recuadro con información que describe lugar donde se relizó el taller, las comunas de las personas que participaron, el tipo de población participante y finalmente una gráfica que describe el concepto de Paz resultante del taller</li>
+                    <li>Este gráfico te muestra la respuesta que un grupo de personas dio a la pregunta ¿qué sí es paz? Para facilitar su comprensión te recomendamos fijarte en los colores y lo que significan: azul es individual, gris es colectivo, amarillo son lugares/espacios y naranja son símbolos o imaginarios. Luego, fíjate en sus tamaños: entre más grande fue más importante y dicho en mayor cantidad por el grupo. Por último, mira las palabras en cada color, también te indicaran por su tamaño cuál fue más mencionada en cada color ¿Qué fue más importante en tu en el taller, lo individual o lo colectivo? ¿Cambia mucho entre comunas y barrios en donde se realizó el taller? ¿Por qué crees que pasen esos cambios?</li>
+                </ol> 
+
+            </div> 
+        
+
+
+        </div>
+
+
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/comunas_cali_0.js"></script>
+        <script src="data/sitios_taller_narrativas_realizado_1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[3.3338402109,-76.615427961],[3.51664156367,-76.357355463]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_comunas_cali_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_comunas_cali_0_0(feature) {
+            switch(String(feature.properties['NOMBRE'])) {
+                case 'Comuna 1':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 10':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 11':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 12':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 13':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 14':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 15':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 16':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 17':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 18':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 19':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 2':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 20':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 21':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 22':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 3':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 4':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 5':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 6':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 7':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,120,223,0.54)',
+            }
+                    break;
+                case 'Comuna 8':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+                case 'Comuna 9':
+                    return {
+                pane: 'pane_comunas_cali_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.54)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,170,170,0.54)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_comunas_cali_0');
+        map.getPane('pane_comunas_cali_0').style.zIndex = 400;
+        map.getPane('pane_comunas_cali_0').style['mix-blend-mode'] = 'normal';
+        var layer_comunas_cali_0 = new L.geoJson(json_comunas_cali_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_comunas_cali_0',
+            onEachFeature: pop_comunas_cali_0,
+            style: style_comunas_cali_0_0,
+        });
+        bounds_group.addLayer(layer_comunas_cali_0);
+        map.addLayer(layer_comunas_cali_0);
+        function pop_sitios_taller_narrativas_realizado_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">sesion</th>\
+                        <td>' + (feature.properties['sesion'] !== null ? Autolinker.link(String(feature.properties['sesion'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lugar_tall</th>\
+                        <td>' + (feature.properties['lugar_tall'] !== null ? Autolinker.link(String(feature.properties['lugar_tall'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">comuna_imp</th>\
+                        <td>' + (feature.properties['comuna_imp'] !== null ? Autolinker.link(String(feature.properties['comuna_imp'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">pobla_imp</th>\
+                        <td>' + (feature.properties['pobla_imp'] !== null ? Autolinker.link(String(feature.properties['pobla_imp'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">image</th>\
+                        <td>' + (feature.properties['image'] !== null ? '<img src="images/' + String(feature.properties['image']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_sitios_taller_narrativas_realizado_1_0() {
+            return {
+                pane: 'pane_sitios_taller_narrativas_realizado_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/paloma-de-la-paz.svg',
+            iconSize: [26.6, 26.6]
+        }),
+            }
+        }
+        map.createPane('pane_sitios_taller_narrativas_realizado_1');
+        map.getPane('pane_sitios_taller_narrativas_realizado_1').style.zIndex = 401;
+        map.getPane('pane_sitios_taller_narrativas_realizado_1').style['mix-blend-mode'] = 'normal';
+        var layer_sitios_taller_narrativas_realizado_1 = new L.geoJson(json_sitios_taller_narrativas_realizado_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_sitios_taller_narrativas_realizado_1',
+            onEachFeature: pop_sitios_taller_narrativas_realizado_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_sitios_taller_narrativas_realizado_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_sitios_taller_narrativas_realizado_1);
+        map.addLayer(layer_sitios_taller_narrativas_realizado_1);
+        setBounds();
+        var i = 0;
+        layer_comunas_cali_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NOMBRE'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['NOMBRE']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_comunas_cali_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_comunascali_0]);
+        map.on("zoomend", function(){
+            resetLabels([layer_comunascali_0]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_comunascali_0]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_comunascali_0]);
+        });
+        </script>
+    </body>
+</html>
